@@ -1,31 +1,32 @@
 using LearnJave.Models;
-using Microsoft.VisualBasic;
+using Microsoft.EntityFrameworkCore;
 
-namespace LearnJava.Models;
+namespace LearnJava.DAL;
 
 public class DBInit
 {
     public static void Seed(IApplicationBuilder app)
     {
         using var serviceScope = app.ApplicationServices.CreateScope();
-        var context = serviceScope.ServiceProvider.GetRequiredService<QuestDbContext>();
+        var context = serviceScope.ServiceProvider.GetRequiredService<GameDbContext>();
 
         // Migration - creates/updates the schema
         context.Database.Migrate();
 
         // Everything is seeded together, so if Quests exist -> the seed has already run
-        if (context.QuestTask.Any()) return;
+        if (context.QuestTasks.Any()) return;
 
-        new Quest
+        var quest = new Quest
         {
             Title = "Test",
             Description = "bla bla",
-            TotalPoints = 10,
-            Tasks =
+            Tasks = new List<QuestTask>
             {
-                new QuestTask { Title = "Test 1", Type = TaskType.Quiz, Order = 1, Points = 5 },
-                new QuestTask { Title = "Test 2", Type = TaskType.CodeSubmission, Order = 2, Points = 5 }
+                new QuestTask { }
             }
         };
+
+        context.Add(quest);
+        context.SaveChanges();
     }
 }
