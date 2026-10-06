@@ -4,3 +4,6 @@
 
 # DATABASER
 *.db
+
+# MD
+STEPS.md
