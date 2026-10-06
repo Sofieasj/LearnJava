@@ -5,6 +5,7 @@ namespace LearnJava.Models;
 // som koblingstabell mellom Player og Quest
 public class PlayerQuest
 {
+    public int Id { get; set; }
     public int PlayerId { get; set; }
     public int QuestId { get; set; }
     public string Status { get; set; } = string.Empty;

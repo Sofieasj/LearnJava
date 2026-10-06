@@ -1,5 +1,6 @@
 using LearnJava.DAL;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.FileSystemGlobbing.Internal.Patterns;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -7,6 +8,9 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<GameDbContext>(options =>
     options.UseSqlite(
         builder.Configuration.GetConnectionString("ConnectionStrings:GameDbCOntextConnection")));
+
+// CONTROLLERS
+builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
 
